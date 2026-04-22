@@ -1,0 +1,12 @@
+{
+  "name": "api_backlog_video_juegos",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {},
+  "dependencies": {
+    "dotenv": "^16.6.1",
+    "express": "^4.22.1",
+    "mongoose": "^8.23.0"
+  }
+}
