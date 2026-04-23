@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { type } from "node:os";
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
