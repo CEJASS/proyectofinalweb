@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backlog de Videojuegos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>▶ BACKLOG</h1>
+    <div class="stats">
+        <div class="stat-box">GAMES <strong id="stat-total">0</strong></div>
+        <div class="stat-box green">RATING <strong id="stat-avg">-</strong></div>
+    </div>
+</header>
+
+<main>
+    <!-- Formulario -->
+    <section class="form-section">
+        <h2 id="form-title">+ NUEVO JUEGO</h2>
+        <form id="game-form">
+            <input type="hidden" id="edit-id">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Nombre *</label>
+                    <input type="text" id="name" minlength="2" required placeholder="Ej: The Last of Us">
+                </div>
+                <div class="form-group">
+                    <label>Género *</label>
+                    <input type="text" id="genre" required placeholder="Ej: Aventura, RPG...">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Plataforma *</label>
+                    <input type="text" id="platform" required placeholder="Ej: PC, PS5, Xbox...">
+                </div>
+                <div class="form-group">
+                    <label>Calificación *</label>
+                    <div class="star-rating" id="star-rating" role="radiogroup" aria-label="Calificación">
+                        <span class="star" data-value="1">★</span>
+                        <span class="star" data-value="2">★</span>
+                        <span class="star" data-value="3">★</span>
+                        <span class="star" data-value="4">★</span>
+                        <span class="star" data-value="5">★</span>
+                    </div>
+                    <input type="hidden" id="calification" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Estado</label>
+                <select id="status">
+                    <option value="pendiente">Pendiente</option>
+                    <option value="en progreso">En progreso</option>
+                    <option value="completado">Completado</option>
+                </select>
+            </div>
+            <div class="form-actions">
+                <button type="submit" id="btn-submit" class="btn-primary">GUARDAR</button>
+                <button type="button" id="btn-cancel" class="btn-cancel hidden" onclick="cancelEdit()">CANCELAR</button>
+            </div>
+        </form>
+    </section>
+
+    <!-- Filtros -->
+    <section class="filter-section">
+        <label>FILTRAR:</label>
+        <select id="filter-status" onchange="loadGames()">
+            <option value="">Todos</option>
+            <option value="pendiente">Pendiente</option>
+            <option value="en progreso">En progreso</option>
+            <option value="completado">Completado</option>
+        </select>
+    </section>
+
+    <!-- Lista -->
+    <section>
+        <div class="list-section" id="games-list"></div>
+        <p id="empty-msg" class="hidden blink">★ NO HAY JUEGOS — PRESIONA START ★</p>
+    </section>
+</main>
+
+<!-- Modal detalle -->
+<div id="modal" class="modal hidden">
+    <div class="modal-content">
+        <button class="close-btn" onclick="closeModal()">✕</button>
+        <h2 id="modal-name"></h2>
+        <p><strong>Género:</strong> <span id="modal-genre"></span></p>
+        <p><strong>Plataforma:</strong> <span id="modal-platform"></span></p>
+        <p><strong>Calificación:</strong> <span id="modal-calification" class="modal-stars"></span></p>
+        <p><strong>Estado:</strong> <span id="modal-status"></span></p>
+    </div>
+</div>
+
+<!-- Modal confirmación eliminar -->
+<div id="confirm-modal" class="modal hidden">
+    <div class="modal-content small">
+        <h3>¿ELIMINAR JUEGO?</h3>
+        <p>Esta acción no se puede deshacer.</p>
+        <div class="form-actions" style="justify-content:center">
+            <button id="confirm-delete-btn" class="btn-danger">SI, BORRAR</button>
+            <button class="btn-cancel" onclick="closeConfirm()">CANCELAR</button>
+        </div>
+    </div>
+</div>
+
+<!-- Notificación -->
+<div id="notification" class="notification hidden"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
