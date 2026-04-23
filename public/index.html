@@ -66,13 +66,19 @@
 
     <!-- Filtros -->
     <section class="filter-section">
-        <label>FILTRAR:</label>
-        <select id="filter-status" onchange="loadGames()">
-            <option value="">Todos</option>
-            <option value="pendiente">Pendiente</option>
-            <option value="en progreso">En progreso</option>
-            <option value="completado">Completado</option>
-        </select>
+        <div class="filter-group">
+            <label>BUSCAR:</label>
+            <input type="text" id="search-input" placeholder="Nombre, género o plataforma..." autocomplete="off">
+        </div>
+        <div class="filter-group">
+            <label>ESTADO:</label>
+            <select id="filter-status" onchange="loadGames()">
+                <option value="">Todos</option>
+                <option value="pendiente">Pendiente</option>
+                <option value="en progreso">En progreso</option>
+                <option value="completado">Completado</option>
+            </select>
+        </div>
     </section>
 
     <!-- Lista -->

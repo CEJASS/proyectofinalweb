@@ -22,25 +22,44 @@ function renderStars(n) {
     return out;
 }
 
+let allGames = [];
+
 // --- Cargar juegos ---
 async function loadGames() {
     const status = document.getElementById("filter-status").value;
     const url = status ? `${API}?status=${encodeURIComponent(status)}` : API;
     const games = await fetchJSON(url);
+    allGames = games || [];
+    renderGames();
+    loadStats();
+}
+
+function renderGames() {
+    const query = document.getElementById("search-input").value.trim().toLowerCase();
+    const filtered = query
+        ? allGames.filter(g =>
+            g.name.toLowerCase().includes(query) ||
+            g.genre.toLowerCase().includes(query) ||
+            g.platform.toLowerCase().includes(query))
+        : allGames;
 
     const list = document.getElementById("games-list");
     const empty = document.getElementById("empty-msg");
     list.innerHTML = "";
 
-    if (!games || games.length === 0) {
+    if (filtered.length === 0) {
+        empty.textContent = query
+            ? `★ SIN RESULTADOS PARA "${query.toUpperCase()}" ★`
+            : "★ NO HAY JUEGOS — PRESIONA START ★";
         empty.classList.remove("hidden");
         return;
     }
 
     empty.classList.add("hidden");
-    games.forEach(g => list.appendChild(createCard(g)));
-    loadStats();
+    filtered.forEach(g => list.appendChild(createCard(g)));
 }
+
+document.getElementById("search-input").addEventListener("input", renderGames);
 
 // --- Estadísticas ---
 async function loadStats() {
